@@ -138,7 +138,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/06/21/system-design-introduction-news-feed/message-queue.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/06/21/system-design-introduction-news-feed/web%20server.png">
 <meta property="og:image" content="http://yoursite.com/2019/06/21/system-design-introduction-news-feed/database.png">
-<meta property="og:updated_time" content="2019-06-21T18:31:52.791Z">
+<meta property="og:updated_time" content="2019-06-22T05:15:32.761Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【系统设计】新鲜事系统">
 <meta name="twitter:description" content="系统设计面试是常见的一种面试类型，特别是针对后端工程师，全栈工程师是必须的面试环节。 需要面试系统设计的情况如下：  刚毕业的学生 已经有工作经验的工程师 面试全栈工程师 面试后端工程师 面试系统架构师  现在的系统设计大部分时候面试的内容都是与 Web 开发相关的知识，因为大部分的公司都需要 Web Backend Engineer。因此只要面试和后端有关的职位，都有可能会面到系统设计，无论是刚">
@@ -362,7 +362,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-06-22T02:31:52+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-22T13:15:32+08:00">
                 2019-06-22
               </time>
             
@@ -875,12 +875,12 @@
 </ul>
 <h3 id="Q3：惊群现象"><a href="#Q3：惊群现象" class="headerlink" title="Q3：惊群现象"></a>Q3：惊群现象</h3><p>惊群现象(Thundering Herd)：对于同一条数据短时间出现大量的请求。因为访问的是同一个数据，sharding 机制无论如何都会 sharding 到同一个机器上。此时 sharding 不能做到分摊流量的作用。➔数据库承受不住压力<br><!-- ![Thundering Herd](thundering-herd.jpg) --><br><img src="thundering-herd.jpg" style="height: 300px;" alt="Thundering Herd"></p>
 <blockquote>
-<p>我们通常会使用缓存来作为数据库的“挡箭牌”，优化一些经常读取的数据的访问速度。即，在访问这些数 据时，会先看看是否在缓存中，如果在，就直接读取缓存中的数据，如果不在，就从数据库中读取之后，写入缓存并返回。</p>
+<p>我们通常会使用缓存来作为数据库的“挡箭牌”，优化一些经常读取的数据的访问速度。即，在访问这些数据时，会先看看是否在缓存中，如果在，就直接读取缓存中的数据，如果不在，就从数据库中读取之后，写入缓存并返回。</p>
 <p>那么在高并发的情况下，如果一条非常热的数据，因为缓存过期或者被淘汰算法淘汰等原因，被踢出缓存之后，会导致短时间内(&lt;1s)，大量的数据请求会出现缓存穿透 (Cache miss)，因为数据从 DB 回填到 Cache 需要时间。从而这些请求都会去访问数据库，导致数据库处理不过来而崩溃，从而影响到其他数据的访问而导致整个网站崩溃。</p>
 </blockquote>
 <p>解决办法及参考资料：</p>
 <ul>
-<li>Memcache <u>Lease Get</u> - <a href="http://bit.ly/1jDzKZK" target="_blank" rel="noopener">《Scaling Memcache at Facebook》</a><br>给普通的memcache增加lease get功能：对于读取同一条数据，只有第一个请求去访问数据库，把数据从DB中取出，然后回填到cache； 其他请求都在等着。<br>（取肉夹馍例子）<!-- ![memcace lease get draft](memcace-lease-get.jpg) -->
+<li>Memcache <u>Lease Get</u> - <a href="http://bit.ly/1jDzKZK" target="_blank" rel="noopener">《Scaling Memcache at Facebook》</a><br>给普通的memcache增加lease get功能：对于读取同一条数据，只有第一个请求去访问数据库，把数据从DB中取出，然后回填到cache； 其他请求都在等着。（取肉夹馍例子）<!-- ![memcace lease get draft](memcace-lease-get.jpg) -->
 <img src="memcace-lease-get.jpg" style="height: 200px; " alt="memcace lease get draft"></li>
 <li><a href="https://bit.ly/2KFneb5" target="_blank" rel="noopener">Redis 防雪崩架构设计</a></li>
 </ul>
